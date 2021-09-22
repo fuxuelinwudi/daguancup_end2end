@@ -1,4 +1,5 @@
-#The 5th Dagan Cup, Team name: XiaoChuan Sun , 4th in the A list, 7th in the B list, single model throughout.
+# 0.The 5th Dagan Cup, Team name: XiaoChuan Sun , 4th in the A list, 7th in the B list, single model throughout.
+##### Competition Address:https://www.datafountain.cn/competitions/512/ranking?isRedance=0&sch=1804
 
 # 1.data process details
 
