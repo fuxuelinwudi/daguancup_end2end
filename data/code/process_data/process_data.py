@@ -10,6 +10,7 @@ from tqdm import tqdm
 from argparse import ArgumentParser
 from data.code.util.others.label2id import label2id
 
+sys.path.append('../../../data')
 
 logging.basicConfig()
 logger = logging.getLogger('第五届达观杯')
