@@ -98,10 +98,7 @@ class DGDataCollator:
             cand_indexes.append([i])
         num_to_predict = max(1, int(round(len(input_ids) * self.mlm_probability)))
 
-        if len(input_ids) <= 32:
-            max_ngram = 2
-        else:
-            max_ngram = 3
+        max_ngram = 3
         ngrams = np.arange(1, max_ngram + 1, dtype=np.int64)
         pvals = 1. / np.arange(1, max_ngram + 1)
         pvals /= pvals.sum(keepdims=True)
@@ -164,33 +161,12 @@ class DGDataCollator:
         labels = inputs.clone()
         probability_matrix = mask_labels
 
-        bs = inputs.shape[0]
         # word struct prediction
-        for i in range(bs):
-            tmp = []
-            tmp_pro = []
-            tmp_pro.extend([1] * 3)
-            now_input = inputs[i]
-            now_probability_matrix = probability_matrix[i]
-            now_probability_matrix = now_probability_matrix.cpu().numpy().tolist()
-            now_input = now_input.cpu().numpy().tolist()
-            for j in range(len(now_input)):
-                if now_input[j] == self.tokenizer.sep_token_id:
-                    sep_index = j
-            # we don't choose cls_ids, sep_ids, pad_ids
-            choose_range = now_input[1:sep_index - 2]
-            if len(choose_range) == 0:
-                choose_range = now_input[1:5]
-            rd_token = np.random.choice(choose_range)
-            token_idx = now_input.index(rd_token)
-            tmp.extend(now_input[token_idx:token_idx + 3])
-            np.random.shuffle(tmp)
-            now_input[token_idx:token_idx + 3] = tmp
-            now_probability_matrix[token_idx:token_idx + 3] = tmp_pro
-            now_input = torch.tensor(now_input)
-            now_probability_matrix = torch.tensor(now_probability_matrix)
-            inputs[i] = now_input
-            probability_matrix[i] = now_probability_matrix
+
+        '''
+        complete by yourself
+        '''
+
         special_tokens_mask = [
             self.tokenizer.get_special_tokens_mask(val, already_has_special_tokens=True) for val in labels.tolist()
         ]
