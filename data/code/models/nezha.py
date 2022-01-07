@@ -45,9 +45,6 @@ class NeZhaSequenceClassification_F(NeZhaPreTrainedModel):
         if labels is not None:
             loss_fct = nn.CrossEntropyLoss()
             loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
-            pseudo_labels = torch.argmax(torch.softmax(logits, -1), 1)
-            pseudo_loss = loss_fct(logits.view(-1, self.num_labels), pseudo_labels.view(-1))
-            loss = loss + 0.5 * pseudo_loss
 
             if level1_labels is not None:
                 level1_logits = self.level1_classifier(last_hidden)
